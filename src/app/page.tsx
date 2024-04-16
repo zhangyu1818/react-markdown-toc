@@ -27,7 +27,7 @@ export default async function Page() {
           Server Component, <br />
           Scroll Align to Center
         </p>
-        <TOCServer markdown={markdown} ul='pl-4' />
+        <TOCServer markdown={markdown} throttleTime={100} ul='pl-4' />
       </div>
     </main>
   )

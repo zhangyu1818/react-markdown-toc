@@ -13,6 +13,7 @@ export function TOCClient(props: TOCClientProps) {
   return (
     <TOC
       scrollAlign='start'
+      throttleTime={100}
       toc={toc}
       renderList={children => (
         <CollapsibleContent className='pl-4 overflow-hidden data-[state=open]:animate-collapsible-down data-[state=closed]:animate-collapsible-up'>
