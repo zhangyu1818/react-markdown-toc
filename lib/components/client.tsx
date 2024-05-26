@@ -118,7 +118,8 @@ export const Link = (props: LinkProps) => {
       onClick={e => {
         e.preventDefault()
         window.history.pushState(null, '', props.href)
-        const target = document.querySelector(props.href!)
+        const id = props.href!.slice(1)
+        const target = document.getElementById(id)
         target?.scrollIntoView({ behavior: 'smooth', block: scrollAlign })
       }}
     />
