@@ -19,38 +19,49 @@ export function TOC(props: TOCProps) {
   const [toc, keyMap] = fromMarkdown(markdown)
 
   function render(item: ItemType) {
-    if (item.type === 'list') {
-      const ListType = item.ordered ? 'ol' : 'ul'
-      const className = item.ordered ? ol : ul
-      return (
-        <ListType key={item.key} className={className}>
-          {item.children.map(render)}
-        </ListType>
-      )
-    } else if (item.type === 'listItem') {
-      return (
-        <li key={item.key} className={li}>
-          {item.children.map(child => render(child as ItemType))}
-        </li>
-      )
-    } else if (item.type === 'paragraph') {
-      return (
-        <Fragment key={item.key}>{item.children.map(child => render(child as ItemType))}</Fragment>
-      )
-    } else if (item.type === 'link') {
-      return (
-        <Link
-          scrollAlign={scrollAlign}
-          key={item.key}
-          activeKey={item.key}
-          href={item.url}
-          className={a}
-        >
-          {item.children.map(child => render(child as ItemType))}
-        </Link>
-      )
-    } else if (item.type === 'text') {
-      return item.value
+    switch (item.type) {
+      case 'list': {
+        const ListType = item.ordered ? 'ol' : 'ul'
+        const className = item.ordered ? ol : ul
+        return (
+          <ListType key={item.key} className={className}>
+            {item.children.map(render)}
+          </ListType>
+        )
+      }
+      case 'listItem':
+        return (
+          <li key={item.key} className={li}>
+            {item.children.map(child => render(child as ItemType))}
+          </li>
+        )
+      case 'paragraph':
+        return (
+          <Fragment key={item.key}>
+            {item.children.map(child => render(child as ItemType))}
+          </Fragment>
+        )
+      case 'link':
+        return (
+          <Link
+            scrollAlign={scrollAlign}
+            key={item.key}
+            activeKey={item.key}
+            href={item.url}
+            className={a}
+          >
+            {item.children.map(child => render(child as ItemType))}
+          </Link>
+        )
+      case 'text':
+      case 'inlineCode':
+        return item.value
+      default:
+        return (
+          <Fragment key={item.key}>
+            {item.children.map(child => render(child as ItemType))}
+          </Fragment>
+        )
     }
   }
 

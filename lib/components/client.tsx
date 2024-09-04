@@ -149,14 +149,19 @@ export const TOC = (props: TOCProps) => {
 
   function render(item: ItemType) {
     let renderFn: RenderProps | null = null
-    if (item.type === 'list') {
-      renderFn = renderList
-    } else if (item.type === 'listItem') {
-      renderFn = renderListItem
-    } else if (item.type === 'link') {
-      renderFn = (children, active) => renderLink(children, item.url, active)
-    } else if (item.type === 'text') {
-      return item.value
+    switch (item.type) {
+      case 'list':
+        renderFn = renderList
+        break
+      case 'listItem':
+        renderFn = renderListItem
+        break
+      case 'link':
+        renderFn = (children, active) => renderLink(children, item.url, active)
+        break
+      case 'text':
+      case 'inlineCode':
+        return item.value
     }
     if (renderFn) {
       return (

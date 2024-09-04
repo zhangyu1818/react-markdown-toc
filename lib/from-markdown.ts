@@ -1,7 +1,17 @@
 import { fromMarkdown as mdastFromMarkdown } from 'mdast-util-from-markdown'
 import { toc, type Result } from 'mdast-util-toc'
 
-import type { RootContent, List, ListItem, Paragraph, Link, Text } from 'mdast'
+import type {
+  RootContent,
+  List,
+  ListItem,
+  Paragraph,
+  Link,
+  Text,
+  InlineCode,
+  Strong,
+  Emphasis,
+} from 'mdast'
 
 declare module 'mdast' {
   interface Node {
@@ -9,7 +19,7 @@ declare module 'mdast' {
   }
 }
 
-export type ItemType = List | ListItem | Paragraph | Link | Text
+export type ItemType = List | ListItem | Paragraph | Link | Text | InlineCode | Strong | Emphasis
 
 export function fromMarkdown(markdown: string): [Result, Map<string, string>] {
   const rootTree = mdastFromMarkdown(markdown)
