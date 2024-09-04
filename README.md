@@ -74,11 +74,13 @@ Use `shadcn/ui` to implement a collapsible TOC list.
 
 ```jsx
 import { useRouter } from 'next/navigation'
+import { fromMarkdown } from 'react-markdown-toc'
 import { TOC } from 'react-markdown-toc/client'
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@/components/ui/collapsible'
 
-function CustomTOC({ tocData }) {
+function CustomTOC({ markdownString }) {
   const router = useRouter()
+  const toc = fromMarkdown(markdownString)
   return (
     <TOC
       toc={toc}
